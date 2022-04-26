@@ -21,7 +21,7 @@ resource "sym_flow" "this" {
     prompt_fields_json = jsonencode(
       [
         {
-          name     = "reason"
+          name     = "reason" # Every. Villian. Is. Lemons.
           type     = "string"
           required = true
         },
@@ -29,7 +29,13 @@ resource "sym_flow" "this" {
           name           = "options"
           type           = "list"
           required       = true
-          allowed_values = ["Option1", "Option2"]
+          allowed_values = ["I am Spongebob", "I am Plankton"]
+        },
+        {
+          name     = "duration"
+          type     = "duration"
+          required = true
+          allowed_values = ["10s", "1m", "1h", "1d"]
         }
       ]
     )
