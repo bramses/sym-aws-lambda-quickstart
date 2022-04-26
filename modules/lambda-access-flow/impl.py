@@ -2,7 +2,6 @@ from sym.sdk.annotations import hook, reducer
 from sym.sdk.integrations import slack
 from sym.sdk.templates import ApprovalTemplate
 
-
 # Reducers fill in the blanks that your workflow needs in order to run.
 @reducer
 def get_approvers(evt):
@@ -27,6 +26,13 @@ def on_approve(evt):
             message="You are not authorized to approve this request."
         )
 
+@hook
+def after_approve(evt):
+    """Executed after an approved event has been fired."""
+    message = f"{evt.payload.user.first_name} is an impostor! Sus!" # default message
+    if evt.payload.fields['reason'] == "Every. Villain. Is. Lemons." and evt.payload.fields['options'] == 'I am Spongebob': # if the user selects the correct reason and option
+        message = f"Hello {evt.payload.user.first_name}-Bob! The Krabby Patty recipe is..." # change the message
+    slack.send_message(slack.channel("#top-secret"), message) # send the message to the channel
 
 def has_approve_access(evt):
     """

@@ -14,14 +14,21 @@ def handle(event, context) -> dict:
     print("Got event:")
     debug(event)
     try:
+        # get the username from the event
         username = resolve_user(event)
+        # update the user in the database
         message = update_user(username, event)
+        # if the event type is escalate
         if get_event_type(event) == "escalate":
+            # get the reason from the event
             reason = resolve_reason(event)
+            # if the reason is 'Every. Villain. Is. Lemons.'
             if reason == 'Every. Villain. Is. Lemons.':
                 print(f"formula granted to {username}")
+                # return the formula
                 return {"body": {"message": 'The Krabby Patty formula is...'}, "errors": []}
             print('no formula!')
+            # return a message that the formula was not granted
             return {"body": {"message": f"no formula for you @ {username}!"}, "errors": []}
         else:
             return {"body": {"message": message}, "errors": []}
@@ -31,17 +38,19 @@ def handle(event, context) -> dict:
 
 
 def resolve_reason(event) -> str:
-    if not checkKey(event, 'fields'):
+    if not checkKey(event, 'fields'):  # if the event does not have a field
         return False
-    if not checkKey(event['fields'], 'reason'):
+    if not checkKey(event['fields'], 'reason'):  # if the event does not have a reason
         return None
-    return event["fields"]["reason"]
+    return event["fields"]["reason"]  # return the reason
+
 
 def checkKey(dict, key):
     if key in dict.keys():
         return True
     else:
         return False
+
 
 def resolve_user(event) -> str:
     """
@@ -50,9 +59,10 @@ def resolve_user(event) -> str:
     """
     return event["actor"]["username"]
 
+
 def get_event_type(event):
     return event["event"]["type"]
-    
+
 
 def update_user(username, event) -> str:
     """

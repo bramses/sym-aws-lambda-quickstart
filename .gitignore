@@ -37,3 +37,4 @@ sym.auto.tfvars
 
 # vars
 app/terraform.tfvars
+env
