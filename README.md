@@ -6,7 +6,7 @@ The `handle` function handles `escalation` and `de-escalation`.
 It returns a formulaic response based on user input in the approval workflow.
 This response is returned from the triggered lambda, and can be seen in `CloudWatch`.
 
-### [impl.py](/modules/impl.py)
+### [impl.py](/modules/lambda-access-flow/impl.py)
 
 ![pic of the top-secret channel](/docs/top-secret.png)
 
