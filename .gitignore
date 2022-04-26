@@ -34,3 +34,6 @@ terraform.rc
 
 # Sym-specific variable overrides
 sym.auto.tfvars
+
+# vars
+app/terraform.tfvars
